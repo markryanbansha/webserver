@@ -1,6 +1,7 @@
 Mytwitter::Application.routes.draw do
   resources :users       # NEW LINE
   resources :sessions, only: [:new, :create, :destroy]  # NEW LINE
+  resources :microposts, only: [:create, :destroy]     # NEW LINE
   root to: 'static_pages#home'
   match '/help',    to: 'static_pages#help' , via: 'get'
   match '/about',   to: 'static_pages#about', via: 'get'

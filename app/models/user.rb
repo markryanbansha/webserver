@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :microposts     # NEW LINE - Indicates association with Micropost
+  has_many :microposts, dependent: :destroy   #  CHANGED
 	  before_save do |user| 
               user.email = email.downcase 
             user.remember_token = SecureRandom.urlsafe_base64
@@ -11,4 +13,8 @@ class User < ActiveRecord::Base
       validates :password, presence: true, length: { minimum: 6 }
       validates :password_confirmation, presence: true
       has_secure_password      # A magic method!!
-    end
+    
+    def feed
+            Micropost.where("user_id = ?", id)
+          end
+        end
